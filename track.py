@@ -14,9 +14,11 @@ class TrackSoundButton(Button):
 
 
 class TrackWidget(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self, sound, **kwargs):
         super(TrackWidget, self).__init__(**kwargs)
-        self.add_widget(TrackSoundButton())
+        sound_button = TrackSoundButton()
+        sound_button.text = sound.displayname
+        self.add_widget(sound_button)
         for i in range(0, TRACK_NB_STEPS):
             self.add_widget(TrackStepButton())
 
