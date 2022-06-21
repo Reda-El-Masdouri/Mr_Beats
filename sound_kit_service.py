@@ -5,7 +5,7 @@ from array import array
 class Sound:
     samples = None
     nb_samples = 0
-    
+
     def __init__(self, filename, displayname):
         self.filename = filename
         self.displayname = displayname
