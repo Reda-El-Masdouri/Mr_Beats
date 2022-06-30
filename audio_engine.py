@@ -20,5 +20,6 @@ class AudioEngine:
 
     def create_track(self, wav_samples, bpm):
         source_track = AudioSourceTrack(self.output_stream, wav_samples, bpm, self.SAMPLE_RATE)
-        source_track.set_steps((1, 0, 0, 0))
+        #source_track.set_steps((1, 0, 0, 0))
         source_track.start()
+        return source_track

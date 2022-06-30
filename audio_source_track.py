@@ -21,7 +21,7 @@ class AudioSourceTrack(ThreadSource):
     # 1step = (44100 * 15) / bpm  <->  step_nb_samples = (sample_rate * 15)/bpm
 
     def set_steps(self, steps):
-        if not len(steps) == self.steps:
+        if not len(steps) == len(self.steps):
             self.current_step_index = 0
         self.steps = steps
 
