@@ -17,7 +17,8 @@ class AudioSourceTrack(ThreadSource):
         self.sample_rate = sample_rate
         self.bpm = bpm
         self.compute_step_nb_samples_and_alloc_buffer()
-        self.last_sound_sample_start_index = 0
+        # FIX: Evite de jouer les sons au démarrage
+        self.last_sound_sample_start_index = -self.nb_wav_samples
     # 1step = (44100 * 15) / bpm  <->  step_nb_samples = (sample_rate * 15)/bpm
 
     def set_steps(self, steps):
@@ -36,7 +37,7 @@ class AudioSourceTrack(ThreadSource):
                 self.step_nb_samples = n
                 self.buf = array('h', b"\x00\x00" * self.step_nb_samples)
 
-    def get_bytes(self, *args, **kwargs):
+    def get_bytes_array(self):
         for i in range(0, self.step_nb_samples):
             if len(self.steps) > 0:
                 if self.steps[self.current_step_index] == 1 and i < self.nb_wav_samples:
@@ -57,4 +58,7 @@ class AudioSourceTrack(ThreadSource):
         self.current_step_index += 1
         if self.current_step_index >= len(self.steps):
             self.current_step_index = 0
-        return self.buf.tostring()
+        return self.buf
+
+    def get_bytes(self, *args, **kwargs):
+        return self.get_bytes_array().tostring()
