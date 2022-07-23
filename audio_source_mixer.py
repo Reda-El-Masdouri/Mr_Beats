@@ -17,7 +17,8 @@ class AudioSourceMixer(ThreadSource):
             self.tracks.append(track)
 
         self.bpm = bpm
-        self.buf = array('h', b"\x00\x00" * self.tracks[0].buffer_nb_samples)
+        self.buf = None
+        self.silence = array('h', b"\x00\x00" * self.tracks[0].buffer_nb_samples)
         self.nb_steps = nb_steps
         self.current_sample_index = 0
         self.current_step_index = 0
@@ -52,9 +53,9 @@ class AudioSourceMixer(ThreadSource):
 
         # silence
         if not self.is_playing:
-            for i in range(0, step_nb_samples):
-                self.buf[i] = 0
-            return self.buf[0:step_nb_samples].tostring()
+            """for i in range(0, step_nb_samples):
+                self.buf[i] = 0"""
+            return self.silence[0:step_nb_samples].tostring()
 
         track_buffers = []
         for i in range(0, len(self.tracks)):
@@ -62,10 +63,12 @@ class AudioSourceMixer(ThreadSource):
             track_buffer = track.get_bytes_array()
             track_buffers.append(track_buffer)
 
-        for i in range(0, step_nb_samples):
+        """for i in range(0, step_nb_samples):
             self.buf[i] = 0
             for j in range(0, len(track_buffers)):
-                self.buf[i] += track_buffers[j][i]
+                self.buf[i] += track_buffers[j][i]"""
+        s = map(sum, zip(*track_buffers))
+        self.buf = array('h', s)
         if self.on_current_step_changed is not None:
             step_index_for_display = self.current_step_index - 2
             if step_index_for_display < 0:
