@@ -4,6 +4,17 @@ from audiostream.sources.thread import ThreadSource
 
 from Mr_Beats.audio_source_track import AudioSourceTrack
 
+MAX_16BITS = 32767
+MIN_16BITS = -32768
+
+def sum_16bit(n):
+    s = sum(n)
+    if s > MAX_16BITS:
+        s = MAX_16BITS
+    if s < MIN_16BITS:
+        s = MIN_16BITS
+    return s
+
 
 class AudioSourceMixer(ThreadSource):
     buf = None
@@ -67,7 +78,7 @@ class AudioSourceMixer(ThreadSource):
             self.buf[i] = 0
             for j in range(0, len(track_buffers)):
                 self.buf[i] += track_buffers[j][i]"""
-        s = map(sum, zip(*track_buffers))
+        s = map(sum_16bit, zip(*track_buffers))
         self.buf = array('h', s)
         if self.on_current_step_changed is not None:
             step_index_for_display = self.current_step_index - 2

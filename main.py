@@ -22,7 +22,7 @@ class MainWidget(RelativeLayout):
     play_indicator_widget = ObjectProperty()
     TRACK_STEPS_LEFT_ALIGN = NumericProperty(dp(100))
     step_index = 0
-    bpm = NumericProperty(120)
+    bpm = NumericProperty(115)
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
         self.sound_kit_service = SoundKitService()
@@ -30,7 +30,7 @@ class MainWidget(RelativeLayout):
         self.audio_engine = AudioEngine()
         #self.audio_engine.create_track(kick_sound.samples, 200)
         #self.audio_engine.play_sound(kick_sound.samples)
-        self.mixer = self.audio_engine.create_mixer(self.sound_kit_service.soundkit.get_all_samples(), 120, TRACK_NB_STEPS, self.on_mixer_current_step_changed, MIN_BPM)
+        self.mixer = self.audio_engine.create_mixer(self.sound_kit_service.soundkit.get_all_samples(), self.bpm, TRACK_NB_STEPS, self.on_mixer_current_step_changed, MIN_BPM)
 
     def on_parent(self, widget, parent):
         self.play_indicator_widget.set_nb_steps(TRACK_NB_STEPS)

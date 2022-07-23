@@ -6,7 +6,7 @@ from audiostream.sources.thread import ThreadSource
 class AudioSourceTrack(ThreadSource):
     steps = ()
     step_nb_samples = 0
-    
+
 
     def __init__(self, output_stream, wav_samples, bpm, sample_rate, min_bpm, *args, **kwargs):
         ThreadSource.__init__(self, output_stream, *args, **kwargs)
