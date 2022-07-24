@@ -10,34 +10,78 @@ MainWidget:
     play_indicator_widget: play_indicator_widget
     BoxLayout:
         orientation: "vertical"
-        BoxLayout:
+        RelativeLayout:
             size_hint_y: None
-            height: dp(50)
-            ControlButton:
-                text: "PLAY"
-                on_press: root.on_play_button_pressed()
-            ControlButton:
-                text: "STOP"
-                on_press: root.on_stop_button_pressed()
-            ControlButton:
-                text: "-"
+            height: dp(60)
+            Image:
+                source: "images/top_background.png"
+                allow_stretch: True
+                keep_ratio: False
+            Image:
+                source: "images/logo.png"
+                allow_stretch: True
+                keep_ratio: False
                 size_hint_x: None
-                width: dp(50)
-                on_press: root.bpm -= 5
-            Label:
-                text: str(root.bpm)
+                width: dp(230)
+
+            BoxLayout:
                 size_hint_x: None
-                width: dp(80)
-            ControlButton:
-                text: "+"
+                width: dp(165)
+                pos_hint: { "center_x": 0.5 }
+                ControlButton:
+
+                    on_press: root.on_play_button_pressed()
+                    background_normal: "images/play_button_normal.png"
+                    background_down: "images/play_button_down.png"
+                ControlButton:
+
+                    on_press: root.on_stop_button_pressed()
+                    background_normal: "images/stop_button_normal.png"
+                    background_down: "images/stop_button_down.png"
+            BoxLayout:
                 size_hint_x: None
-                width: dp(50)
-                on_press: root.bpm += 5
-        PlayIndicatorWidget:
-            id: play_indicator_widget
-            size_hint_y: None
-            height: dp(8)
-            left_align: root.TRACK_STEPS_LEFT_ALIGN
-        BoxLayout:
-            id: tracks_layout
-            orientation: "vertical"
+                width: dp(180)
+                pos_hint: {"right": 1}
+                ControlButton:
+                    size_hint_x: None
+                    width: dp(42)
+                    on_press: root.bpm -= 5
+                    background_normal: "images/minus_button_normal.png"
+                    background_down: "images/minus_button_down.png"
+                RelativeLayout:
+                    Image:
+                        source: "images/bpm_lcd_background.png"
+                        allow_stretch: True
+                        keep_ratio: False
+                    Label:
+                        text: str(root.bpm)
+                ControlButton:
+                    size_hint_x: None
+                    width: dp(42)
+                    on_press: root.bpm += 5
+                    background_normal: "images/plus_button_normal.png"
+                    background_down: "images/plus_button_down.png"
+                Widget:
+                    size_hint_x: None
+                    width: dp(16)
+
+        # bottom layout:
+        RelativeLayout:
+            Image:
+                source: "images/background.jpg"
+                allow_stretch: True
+                keep_ratio: False
+            BoxLayout:
+                x: dp(16)
+                y: dp(16)
+                size_hint: None, None
+                size: (self.parent.width-dp(32), self.parent.height-dp(32))
+                orientation: "vertical"
+                PlayIndicatorWidget:
+                    id: play_indicator_widget
+                    size_hint_y: None
+                    height: dp(8)
+                    left_align: root.TRACK_STEPS_LEFT_ALIGN
+                BoxLayout:
+                    id: tracks_layout
+                    orientation: "vertical"
