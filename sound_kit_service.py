@@ -33,9 +33,9 @@ class SoundKit1(SoundKit):
     sounds = (Sound("sounds/kit1/kick.wav", "KICK"),
               Sound("sounds/kit1/clap.wav", "CLAP"),
               Sound("sounds/kit1/shaker.wav", "SHAKER"),
-              Sound("sounds/kit1/snare.wav", "SNARE"),
-              Sound("sounds/kit1/pluck.wav", "PLUCK"),
-              Sound("sounds/kit1/bass.wav", "BASS")
+              Sound("sounds/kit1/snare.wav", "SNARE")
+              #,Sound("sounds/kit1/pluck.wav", "PLUCK"),
+              #Sound("sounds/kit1/bass.wav", "BASS")
               )
 
 class SoundKitService:
